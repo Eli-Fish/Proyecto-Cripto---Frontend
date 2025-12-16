@@ -35,4 +35,17 @@ coverage
 # Vitest
 __screenshots__/
 
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+
+# Cache
+*.cache
 *.vsidx
