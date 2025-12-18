@@ -29,7 +29,7 @@
           <td>{{ trans.codigoCripto }}</td>
           <td>{{ trans.tipo }}</td>
           <td>{{ trans.cantidadCripto }}</td>
-          <td>{{ formatearMonto(trans.montoActualizado) }}</td>
+          <td>{{ formatearMonto(trans.monto) }}</td>
           <td>
             <button @click="leerTransaccion(trans)">Leer</button>
             <button @click="editarTransaccion(trans)">Editar</button>
@@ -111,6 +111,7 @@ export default {
         this.error = "Seleccione un cliente.";
         return;
       }
+      
       this.error = "";
       try {
         const respuesta = await axios.get(
@@ -120,6 +121,11 @@ export default {
       } catch (err) {
         console.error(err);
         this.error = "No se pudieron cargar las transacciones.";
+      }
+
+      if (!this.transacciones.length) {
+        this.error = "No hay movimientos para este cliente.";
+        return;
       }
     },
 
@@ -175,6 +181,7 @@ export default {
     },
 
     formatearMonto(valor) {
+      if (valor == null) return "-";
       return valor.toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS"
